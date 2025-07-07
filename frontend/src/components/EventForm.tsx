@@ -63,7 +63,7 @@ export const EventForm = ({ onSubmit }: EventFormProps) => {
 
     try {
       // Replace with your backend API endpoint
-      const response = await axios.post('http://localhost:5000/api/events', formData, {
+      const response = await axios.post('https://evently-bsuf.vercel.app/api/events', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
