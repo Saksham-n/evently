@@ -1,18 +1,9 @@
 const express = require('express');
-const multer = require('multer');
-const path = require('path');
 const Event = require('../models/Event');
 const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: './uploads/',
-  filename: (req, file, cb) => {
-    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
-  }
-});
-const upload = multer({ storage });
 
 router.get('/', async (req, res) => {
   try {
@@ -23,7 +14,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', auth, upload.single('image'), async (req, res) => {
+router.post('/', auth, async (req, res) => {
   try {
     const { title, description, date, time, location, category, price, capacity, tags, requireApproval } = req.body;
     
@@ -31,7 +22,7 @@ router.post('/', auth, upload.single('image'), async (req, res) => {
       title, description, date, time, location, category, price, capacity,
       tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
       requireApproval,
-      imageUrl: req.file ? `/uploads/${req.file.filename}` : '',
+      imageUrl: '', // No image upload
       organizer: req.user.id,
     });
 
