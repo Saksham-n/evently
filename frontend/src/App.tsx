@@ -23,7 +23,7 @@ const AppContent = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('https://evently-bsuf.vercel.app/api/events');
+        const response = await axios.get('https://evently-backend-two.vercel.app/api/events');
         // Map MongoDB's _id to the id field used in the frontend type
         const fetchedEvents = response.data.map((event: any) => ({
           ...event,
@@ -51,7 +51,7 @@ const AppContent = () => {
   // Fetch user registrations from the server
   const fetchUserRegistrations = async () => {
     try {
-      const response = await axios.get('https://evently-bsuf.vercel.app/api/registrations/user');
+      const response = await axios.get('https://evently-backend-two.vercel.app/api/registrations/user');
       const registeredEventIds = response.data.map((reg: any) => reg.event._id);
       const registeredEventsData = response.data.map((reg: any) => ({
         ...reg.event,
@@ -80,7 +80,7 @@ const AppContent = () => {
 
   const handleRegister = async (eventId: number) => {
     try {
-      await axios.post(`https://evently-bsuf.vercel.app/api/registrations/${eventId}`);
+      await axios.post(`https://evently-backend-two.vercel.app/api/registrations/${eventId}`);
       await fetchUserRegistrations();
       setEvents(prev => prev.map(event => 
         event.id.toString() === eventId.toString()
@@ -95,7 +95,7 @@ const AppContent = () => {
 
   const handleUnregister = async (eventId: string) => {
     try {
-      await axios.delete(`https://evently-bsuf.vercel.app/api/registrations/${eventId}`);
+      await axios.delete(`https://evently-backend-two.vercel.app/api/registrations/${eventId}`);
       await fetchUserRegistrations();
       setEvents(prev => prev.map(event => 
         event.id.toString() === eventId 

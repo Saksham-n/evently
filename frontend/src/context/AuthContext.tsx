@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (currentToken) {
       axios.defaults.headers.common['x-auth-token'] = currentToken;
       try {
-        const res = await axios.get('https://evently-bsuf.vercel.app/api/auth/me');
+        const res = await axios.get('https://evently-backend-two.vercel.app/api/auth/me');
         setUser(res.data);
         setIsAuthenticated(true);
       } catch (err) {
@@ -46,14 +46,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const signup = async (formData: any) => {
-    const res = await axios.post('https://evently-bsuf.vercel.app/api/auth/signup', formData);
+    const res = await axios.post('https://evently-backend-two.vercel.app/api/auth/signup', formData);
     localStorage.setItem('token', res.data.token);
     setToken(res.data.token);
     await loadUser();
   };
 
   const login = async (formData: any) => {
-    const res = await axios.post('https://evently-bsuf.vercel.app/api/auth/login', formData);
+    const res = await axios.post('https://evently-backend-two.vercel.app/api/auth/login', formData);
     localStorage.setItem('token', res.data.token);
     setToken(res.data.token);
     await loadUser();
